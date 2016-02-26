@@ -36,7 +36,7 @@ public class ChangePanel extends JPanel{
 	private JScrollPane scroll;
 	private Font tableFont = new Font("Dialog", Font.PLAIN, 16);
 	private Font headerFont = new Font("Dialog", Font.BOLD, 16);
-	private int[] colWidths = {10, 200, 225, 10, 5, 50, 10, 10, 225};
+	private int[] colWidths = {10, 200, 225, 225};
 	private String[] filterFields = changeTableModel.getSearchableChangeColumnsAsArray();
 	private JComboBox<String> changeFieldBox = new JComboBox<String>(filterFields);
 	private Integer[] filterColumns = changeTableModel.getSearchableChangeColumnNumbersAsArray();
@@ -132,7 +132,7 @@ public class ChangePanel extends JPanel{
 			}
 			revalidate();
 			changeTable.repaint();
-			//fullDefectTableSetup();
+			fullChangeTableSetup();
 		}
 	}
 	
@@ -159,14 +159,14 @@ public class ChangePanel extends JPanel{
 	    header.setFont(headerFont);
 	    changeTable.setRowHeight(25);
 	    TableColumnModel colModel = changeTable.getColumnModel();
-	    /*for(int col = 0; col < colWidths.length; col++){
+	   for(int col = 0; col < colWidths.length; col++){
 	    	
-	    	if (!changeTableModel.isColumnViewable(col)){
+	    	//if (!changeTableModel.isColumnViewable(col)){
 	    		int viewCol = changeTable.convertColumnIndexToView(col);
-	    		if (viewCol != -1){changeTable.removeColumn(colModel.getColumn(viewCol));
-	    		}
-	    	}
-	    }*/
+	    	//	if (viewCol != -1){changeTable.removeColumn(colModel.getColumn(viewCol));
+	    	//	}
+	    	//}
+	    }
 	}
     /*private class DateCellRenderer extends ChangeTableCellRenderer {
     	
