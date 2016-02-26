@@ -21,6 +21,7 @@ public class AddPanel extends JPanel {
 	String[] stats = { " ", "Open", "Work in Progress", "Testing", "Deployed", "Cancelled", "Closed"}; 
 	private UserDAO userDAO = new UserDAO();
 	private ArrayList<String> subName = new ArrayList<String>();
+	private ArrayList<String> assigneeName = new ArrayList<String>();
 	
 	JLabel title = new JLabel("ADD DEFECT TO DATABASE");
 	JLabel prioLabel = new JLabel("Priority");
@@ -36,6 +37,9 @@ public class AddPanel extends JPanel {
 	Object tempSubmitter;
 	JLabel submitterLabel = new JLabel("Submitter");
 	JComboBox submitter = new JComboBox(subName.toArray());
+	Object tempAssignee;
+	JLabel assigneeLabel = new JLabel("Assignee");
+	JComboBox assignee = new JComboBox(assigneeName.toArray());
 
 	JButton submit = new JButton("Add Defect");
 	JButton clear = new JButton("Clear");
@@ -48,6 +52,12 @@ public class AddPanel extends JPanel {
 		JComboBox submitter = new JComboBox(subName.toArray());
 		submitter.getSelectedItem();
 		tempSubmitter = submitter.getSelectedItem();
+			
+		assigneeName = userDAO.getSubmitter();
+		JLabel assigneeLabel = new JLabel("Assignee");
+		JComboBox assignee = new JComboBox(assigneeName.toArray());
+		assignee.getSelectedItem();
+		tempAssignee = assignee.getSelectedItem();
 			
 		ButtonListener b = new ButtonListener();
 		submit.addActionListener(b);
@@ -68,6 +78,8 @@ public class AddPanel extends JPanel {
 		textBoxes.add(description);
 		textLabels.add(submitterLabel);
 		textBoxes.add(submitter);
+		textLabels.add(assigneeLabel);
+		textBoxes.add(assignee);
 		textLabels.add(prioLabel);
 		textBoxes.add(priority);
 		textLabels.add(statLabel);
@@ -97,8 +109,9 @@ public class AddPanel extends JPanel {
 				int tempPrio = priority.getSelectedIndex();
 				int tStat = status.getSelectedIndex();
 				int tempSub = Integer.parseInt((String) tempSubmitter);
+				int tempAss = Integer.parseInt((String) tempAssignee);
 				String tempStat = stats[tStat];
-				AddDefect t = new AddDefect(tempSummary, tempDescript, tempPrio, tempSub, tempStat, tempComment);
+				AddDefect t = new AddDefect(tempSummary, tempDescript, tempAss, tempPrio, tempSub, tempStat, tempComment);
 				addDAO.insertNewDefect(t);
 				summary.setText("");
 				description.setText("");
@@ -119,6 +132,7 @@ public class AddPanel extends JPanel {
 				//System.out.println("Clear fields in form");
 			}
 			revalidate();
+			repaint();
 			
 		}
 
